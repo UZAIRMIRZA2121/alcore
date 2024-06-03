@@ -47,19 +47,12 @@
                             <div class="d-flex justify-content-center py-4">
                                 <a href="index.html" class="logo d-flex align-items-center w-auto">
                                     <img src="{{ asset('admin/assets/img/logo.png') }}" alt="">
-                                    <span class="d-none d-lg-block">Medico</span>
+                                    <span class="d-none d-lg-block">Alcore</span>
                                 </a>
                             </div><!-- End Logo -->
 
                             <div class="card mb-3">
-                                @if (session('status'))
-                                    <div class="alert alert-danger alert-dismissible fade show m-2" role="alert">
-                                        <i class="bi bi-exclamation-octagon me-1"></i>
-                                        {{ session('status') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    </div>
-                                @endif
+                             @include('layouts.messages')
                                 @if ($errors->any())
                                     <div class="alert alert-danger alert-dismissible fade show m-2" role="alert">
                                         <i class="bi bi-exclamation-octagon me-1"></i>
@@ -77,7 +70,7 @@
                                     </div>
 
                                     <form class="row g-3 needs-validation" novalidate method="POST"
-                                        action="{{ route('login') }}">
+                                        action="{{ route('login.credentials') }}">
                                         @csrf
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Email</label>

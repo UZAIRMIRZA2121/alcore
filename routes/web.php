@@ -6,7 +6,12 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClinicController;
 use App\Models\User;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\DelegateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,23 +24,22 @@ use App\Models\User;
 |
 */
 
+
+Route::post('/login', [AuthController::class, 'login'])->name('login.credentials');
 Route::get('/', function () {
     return view('frontend.index');
 });
 Route::get('/user/logout', function () {
-    
+
     // Check if the user is authenticated
     if (Auth::check()) {
         // Retrieve the currently authenticated user
-        $user = Auth::user();
-     
-;        // Update the is_online field to false
+        $user = Auth::user();;        // Update the is_online field to false
         User::where('id', $user->id)->update(['is_online' => false]);
-
         // Log out the user
         Auth::logout();
     }
-    
+
     // Redirect to the home page
     return redirect('/');
 })->name('user.logout');
@@ -46,36 +50,47 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        $userId = Auth::id(); // Get the ID of the currently authenticated user
-        $user = User::find($userId); // Find the user by ID
-        
-        // Update is_online field to true when user accesses the dashboard
-        $user->update(['is_online' => true]);
-        if ($user->role == 'admin') {
-            return redirect()->route('admin.dashboard');
-        } elseif ($user->role == 'doctor') {
-            return redirect()->route('doctor.dashboard');
-        } elseif ($user->role == 'patient') {
-            return redirect()->route('patient.dashboard');
+        $user = Auth::user();
+
+        if (!$user) {
+            return redirect()->route('login'); // Redirect to login if not authenticated
+        }
+
+        switch ($user->role) {
+            case 'superadmin':
+                return redirect()->route('admin.dashboard');
+            case 'doctor':
+                return redirect()->route('doctor.dashboard');
+            case 'patient':
+                return redirect()->route('patient.dashboard');
+            default:
+                abort(403, 'Unauthorized'); // Handle unexpected roles
         }
     })->name('dashboard');
+
     //--admin--route--start--//
     Route::prefix('admin')->middleware('admin')->group(function () {
-        Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard'); // Fix the route definition here
+        Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile'); // Fix the route definition here
+        Route::post('/update-profile', [AdminController::class, 'updateProfile'])->name('update.profile');
+        Route::post('/change-password', [AdminController::class, 'changePassword'])->name('change.password');
         Route::resource('doctors', DoctorController::class);
         Route::resource('departments', DepartmentController::class);
+        Route::resource('clinics', ClinicController::class);
+        Route::resource('sponsors', SponsorController::class);
+        Route::resource('delegates', DelegateController::class);
+        Route::resource('events', EventController::class);
+        Route::get('/events/details/{id}', [EventController::class, 'details'])->name('events.details');
+       
     });
     //--admin--route--end--//
-    //--doctor--route--start--//
-    Route::prefix('doctor')->middleware('doctor')->group(function () {
-        Route::get('/dashboard', [DoctorController::class, 'index'])->name('doctor.dashboard');
+   
+});
 
-    });
-    //--doctor--route--end--//
-    //--patient--route--start--//
-    Route::prefix('patient')->middleware('patient')->group(function () {
-        Route::get('/dashboard', [PatientController::class, 'index'])->name('patient.dashboard');
-
-    });
-    //--patient--route--end--//
+// Routes for sponsors
+Route::middleware(['auth:sponsor'])->group(function () {
+    // Define your sponsor routes here
+    Route::get('/sponsor/dashboard', [SponsorController::class, 'dashboard'])->name('sponsor.dashboard');
+    Route::get('/sponsor/profile', [SponsorController::class, 'profile'])->name('sponsor.profile');
+    // Add more routes as needed
 });

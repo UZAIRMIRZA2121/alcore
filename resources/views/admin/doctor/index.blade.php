@@ -58,18 +58,21 @@
                                     <table class="table table-borderless datatable datatable-table">
                                         <thead>
                                             <tr>
-                                                <th scope="col" data-sortable="true" style="width: 10.711909514304724%;">
+                                                <th scope="col" data-sortable="true" >
                                                     <button class="datatable-sorter">#</button>
                                                 </th>
-                                                <th scope="col" data-sortable="true" style="width: 23.486360612109113%;">
+                                                <th scope="col" data-sortable="true" >
                                                     <button class="datatable-sorter">Name</button>
                                                 </th>
-                                                <th scope="col" data-sortable="true" style="width: 25.321357285429144%;">
+                                                <th scope="col" data-sortable="true" >
                                                     <button class="datatable-sorter">Email</button>
                                                 </th>
-                                                <th scope="col" data-sortable="true" style="width: 11.709913506320692%;">
+                                                <th scope="col" data-sortable="true" >
                                                     <button class="datatable-sorter">Department</button>
                                                 </th>
+                                                <th scope="col" data-sortable="true" class="red"
+                                                    ><button
+                                                        class="datatable-sorter">available</button></th>
                                                 <th scope="col" data-sortable="true" class="red"
                                                     style="width: 14.770459081836327%;"><button
                                                         class="datatable-sorter">Status</button></th>
@@ -85,6 +88,13 @@
                                                     <td>{{ $doctor->name }}</td>
                                                     <td><a href="#" class="text-primary">{{ $doctor->email }}</a></td>
                                                     <td>{{ $doctor->department }}</td>
+                                                    <td class="green">
+                                                        @if( $doctor->is_online == 1)
+                                                        <span class="badge bg-success">Online</span>
+                                                        @else
+                                                        <span class="badge bg-danger">Offline</span>
+                                                        @endif
+                                                    </td>
                                                     <td class="green"><span class="badge bg-success">Approved</span></td>
                                                     <td>
                                                         <a href="{{ route('doctors.edit', $doctor->id) }}"

@@ -40,6 +40,15 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'clinic' => [
+            'driver' => 'session',
+            'provider' => 'clinic_users',
+        ],
+        'sponsor' => [ // Add a new guard for sponsors
+            'driver' => 'session',
+            'provider' => 'sponsors', // Specify the sponsor provider
+        ],
     ],
 
     /*
@@ -64,11 +73,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'sponsors' => [ // Add a new provider for sponsors
+            'driver' => 'eloquent',
+            'model' => App\Models\Sponsor::class, // Specify the Sponsor model
+        ],
     ],
 
     /*
