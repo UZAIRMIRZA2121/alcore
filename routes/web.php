@@ -81,7 +81,8 @@ Route::middleware([
         Route::resource('delegates', DelegateController::class);
         Route::resource('events', EventController::class);
         Route::get('/events/details/{id}', [EventController::class, 'details'])->name('events.details');
-       
+        Route::post('/priorities/update', [SponsorController::class, 'priorities_update'])->name('priorities.update');
+        Route::get('/sponsors/{id}/meeting', [SponsorController::class, 'meeting'])->name('sponsors.meeting');
     });
     //--admin--route--end--//
    
@@ -93,4 +94,9 @@ Route::middleware(['auth:sponsor'])->group(function () {
     Route::get('/sponsor/dashboard', [SponsorController::class, 'dashboard'])->name('sponsor.dashboard');
     Route::get('/sponsor/profile', [SponsorController::class, 'profile'])->name('sponsor.profile');
     // Add more routes as needed
+    Route::post('/update-priorities', [SponsorController::class, 'updatePriorities'])->name('delegates.updatePriorities');
+    Route::get('/delegate/{id}', [SponsorController::class, 'delegate_show'])->name('delegate.details');
+
+    Route::get('/sponsor/my-meeting', [SponsorController::class, 'my_meeting'])->name('sponsor.my-meeting');
+
 });

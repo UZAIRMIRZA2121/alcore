@@ -102,7 +102,18 @@
                                         @endif
                                     </div>
                                 </div>
-                                
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="job" placeholder="job" name="job" value="{{ old('job', $sponsor->job) }}" required>
+                                        <label for="job">Job</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="company_name" placeholder="company_name" name="company_name" value="{{ old('company_name', $sponsor->company_name) }}" required>
+                                        <label for="company_name">Company Name</label>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <textarea class="form-control" id="details" name="details" placeholder="Details" style="height: 100px;" required>{{ old('details', $sponsor->details) }}</textarea>

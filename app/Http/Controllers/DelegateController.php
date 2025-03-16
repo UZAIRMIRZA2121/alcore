@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Priority;
 use Illuminate\Http\Request;
 use App\Models\Delegate;
 use App\Models\Event;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class DelegateController extends Controller
@@ -131,4 +133,10 @@ class DelegateController extends Controller
         return redirect()->route('delegates.index')
             ->with('success', 'Delegate deleted successfully.');
     }
+
+
+
+
+
+
 }

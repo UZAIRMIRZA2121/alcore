@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Delegate;
+use App\Models\Priority;
 use App\Models\Sponsor;
 use App\Models\Event;
 use Illuminate\Http\Request;
@@ -46,7 +47,7 @@ class SponsorController extends Controller
         // Handle file uploads
         if ($request->hasFile('image')) {
             $data['image'] = $this->storeFile($request->file('image'), 'images');
-            dd($data['image']);
+
         }
 
         if ($request->hasFile('company_image')) {
@@ -144,9 +145,13 @@ class SponsorController extends Controller
     // sponsor controller
     public function dashboard()
     {
-        $delegates = Delegate::where('event_id', Auth::guard('sponsor')->user()->event_id)->get();
+        $delegates = Delegate::where('event_id', Auth::guard('sponsor')->user()->event_id)
+            ->with('priority') // Load priority relationship
+            ->get();
+
         return view('sponsors.dashboard', compact('delegates'));
     }
+
     public function profile()
     {
         return view('profile.profile');
@@ -191,4 +196,69 @@ class SponsorController extends Controller
 
         return redirect()->back()->with('success', 'Password changed successfully');
     }
+
+
+
+
+
+
+
+
+    public function meeting($id)
+    {
+        $sponsor = Sponsor::findOrFail($id);
+        $priorities = Priority::where('sponsor_id', $sponsor->id)->get();
+
+        // Fetch related data if needed
+        return view('admin.sponsors.meeting', compact('sponsor', 'priorities'));
+    }
+    public function updatePriorities(Request $request)
+    {
+
+
+        // Get sponsor ID
+        $sponsorId = Auth::guard('sponsor')->id();
+        $eventId = Auth::guard('sponsor')->user()->event_id; // Assuming event_id is accessible via sponsor
+
+        foreach ($request->delegates as $delegateData) {
+            Priority::updateOrCreate(
+                [
+                    'event_id' => $eventId,
+                    'sponsor_id' => $sponsorId,
+                    'delegates_id' => $delegateData['id'],
+                ],
+                [
+                    'priority' => $delegateData['priority'],
+                    'status' => 'active', // Default status (adjust as needed)
+                ]
+            );
+        }
+
+        return back()->with('success', 'Priorities updated successfully!');
+    }
+
+    public function priorities_update(Request $request)
+    {
+        $priorityIds = $request->input('priority_ids', []);
+        $startTimes = $request->input('start_time', []);
+        $endTimes = $request->input('end_time', []);
+
+        foreach ($priorityIds as $id) {
+            $priority = Priority::find($id);
+            if ($priority) {
+                $priority->start_time = $request->start_time[$id] ?? null;
+                $priority->end_time = $request->end_time[$id] ?? null;
+                $priority->save();
+            }
+        }
+
+        return redirect()->back()->with('success', 'Priorities updated successfully!');
+    }
+
+    public function delegate_show($id)
+    {
+        $delegate = Delegate::findOrFail($id);
+        return view('sponsors.delegate-details', compact('delegate'));
+    }
+
 }

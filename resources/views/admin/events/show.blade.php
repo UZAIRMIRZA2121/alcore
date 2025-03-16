@@ -9,7 +9,7 @@
             <h1>Dashboard</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                     <li class="breadcrumb-item ">Event</li>
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
@@ -23,95 +23,93 @@
                 <div class="col-lg-12">
                     <div class="row">
 
-                            <!-- Sales Card -->
-                            <div class="col-xxl-3 col-md-6">
-                                <div class="card info-card sales-card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Events <span>| </span></h5>
-    
-                                        <div class="d-flex align-items-center">
-                                            <div
-                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-    
-                                                <i class="bi bi-people "></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h6>{{ $event->name }}</h6>
-                                            </div>
+                        <!-- Sales Card -->
+                        <div class="col-xxl-3 col-md-6">
+                            <div class="card info-card sales-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Events <span>| </span></h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+
+                                            <i class="bi bi-people "></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>{{ $event->name }}</h6>
                                         </div>
                                     </div>
-    
                                 </div>
-                            </div><!-- End Sales Card -->
-    
-                            <!-- Revenue Card -->
-                            <div class="col-xxl-3 col-md-6">
-                                <div class="card info-card revenue-card">
-    
-                                    <div class="card-body">
-                                        <h5 class="card-title">Event Start <span>|</span></h5>
-    
-                                        <div class="d-flex align-items-center">
-                                            <div
-                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-    
-                                                <i class="bi bi-calendar"></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h6>{{ \Carbon\Carbon::parse($event->start)->format('d F Y') }}
-                                                </h6>
-                                            </div>
+
+                            </div>
+                        </div><!-- End Sales Card -->
+
+                        <!-- Revenue Card -->
+                        <div class="col-xxl-3 col-md-6">
+                            <div class="card info-card revenue-card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Event Start <span>|</span></h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+
+                                            <i class="bi bi-calendar"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>{{ \Carbon\Carbon::parse($event->start)->format('d F Y') }}
+                                            </h6>
                                         </div>
                                     </div>
-    
                                 </div>
-                            </div><!-- End Revenue Card -->
-    
-                            <!-- Customers Card -->
-                            <div class="col-xxl-3 col-md-6">
-    
-                                <div class="card info-card customers-card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Event Lock <span>| </span></h5>
-    
-                                        <div class="d-flex align-items-center">
-                                            <div
-                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                <i class="bi bi-stopwatch"></i></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h6>{{ \Carbon\Carbon::parse($event->lock_date)->format('d F Y') }}
-                                                </h6>
-                                            </div>
+
+                            </div>
+                        </div><!-- End Revenue Card -->
+
+                        <!-- Customers Card -->
+                        <div class="col-xxl-3 col-md-6">
+                            <div class="card info-card customers-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Event Lock <span> | </span></h5>
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-stopwatch"></i></i>
                                         </div>
-    
-                                    </div>
-                                </div>
-    
-                            </div><!-- End Customers Card -->
-                            <!-- Customers Card -->
-                            <div class="col-xxl-3 col-md-6">
-    
-                                <div class="card info-card customers-card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Event End <span>| </span></h5>
-    
-                                        <div class="d-flex align-items-center">
-                                            <div
-                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center text-danger">
-                                                <i class="bi bi-calendar"></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h6>{{ \Carbon\Carbon::parse($event->end)->format('d F Y') }}
-                                                </h6>
-                                            </div>
+                                        <div class="ps-3">
+                                            <h6>{{ \Carbon\Carbon::parse($event->lock_date)->format('d F Y') }}
+                                            </h6>
                                         </div>
-    
                                     </div>
+
                                 </div>
-    
-                            </div><!-- End Customers Card -->
-    
+                            </div>
+
+                        </div><!-- End Customers Card -->
+                        <!-- Customers Card -->
+                        <div class="col-xxl-3 col-md-6">
+
+                            <div class="card info-card customers-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Event End <span>| </span></h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center text-danger">
+                                            <i class="bi bi-calendar"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>{{ \Carbon\Carbon::parse($event->end)->format('d F Y') }}
+                                            </h6>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div><!-- End Customers Card -->
+
                         <!-- End Customers Card -->
                         <!-- Customers Card -->
                         {{-- <div class="col-xxl-3 col-md-6">
@@ -142,12 +140,20 @@
                                     <li class="nav-item flex-fill" role="presentation">
                                         <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab"
                                             data-bs-target="#bordered-justified-home" type="button" role="tab"
-                                            aria-controls="home" aria-selected="true">Sponsors   <span class="badge rounded-pill bg-info">{{$sponsors->count()}}</span></button>
+                                            aria-controls="home" aria-selected="true">Sponsors <span
+                                                class="badge rounded-pill bg-info">{{ $sponsors->count() }}</span></button>
                                     </li>
                                     <li class="nav-item flex-fill" role="presentation">
                                         <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab"
                                             data-bs-target="#bordered-justified-profile" type="button" role="tab"
-                                            aria-controls="profile" aria-selected="false" tabindex="-1">Delegates <span class="badge rounded-pill bg-info">{{$delegates->count()}}</span></button>
+                                            aria-controls="profile" aria-selected="false" tabindex="-1">Delegates <span
+                                                class="badge rounded-pill bg-info">{{ $delegates->count() }}</span></button>
+                                    </li>
+                                    <li class="nav-item flex-fill" role="presentation">
+                                        <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab"
+                                            data-bs-target="#bordered-justified-priorities" type="button" role="tab"
+                                            aria-controls="profile" aria-selected="false" tabindex="-1">Meeting <span
+                                                class="badge rounded-pill bg-info"></span></button>
                                     </li>
                                 </ul>
                                 <div class="tab-content pt-2" id="borderedTabJustifiedContent">
@@ -198,7 +204,8 @@
                                                                     <td>{{ $sponsor->details }}</td>
                                                                     <td>{{ $sponsor->company_details }}</td>
                                                                     <td>
-                                                                     
+                                                                        <a href="{{ route('sponsors.meeting', $sponsor->id) }}"
+                                                                            class="btn btn-sm btn-warning">Meeting</a>
                                                                         <a href="{{ route('sponsors.edit', $sponsor->id) }}"
                                                                             class="btn btn-sm btn-warning">Edit</a>
                                                                         <form id="delete-form-{{ $sponsor->id }}"
@@ -300,6 +307,47 @@
                                         </div><!-- End Recent Sales -->
 
                                     </div>
+                                    <div class="tab-pane fade" id="bordered-justified-priorities" role="tabpanel"
+                                    aria-labelledby="profile-tab">
+                                    <!-- Recent Sales -->
+                                    <div class="col-12">
+                                        <div class="card recent-sales overflow-auto">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Delegates<span>|</span></h5>
+                                                <table class="table table-borderless datatable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Event Name</th>
+                                                            <th>Sponsor Name</th>
+                                                            <th>Delegate Name</th>
+                                                            <th>Priority</th>
+                                                            <th>Start Time</th>
+                                                            <th>End Time</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                        
+                                                    </thead>
+                                                    <tbody>
+                                                        @php
+                                                            $i = 1;
+                                                        @endphp
+                                                        @foreach ($sponsors as $sponsor)
+                                                        <td>{{ $i++ }}</td>
+                                                        <td>{{ $event->name }}</td>
+                                                        <td>{{ $sponsor->username }}</td>
+                                                          
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+
+                                        </div>
+                                    </div><!-- End Recent Sales -->
+
+                                </div>
+
 
                                 </div><!-- End Bordered Tabs Justified -->
 

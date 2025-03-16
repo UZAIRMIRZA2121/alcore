@@ -93,6 +93,12 @@
             <span>Dashboard</span>
         </a>
     </li>
+    <li class="nav-item {{ Request::is('sponsor.my-meeting') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('sponsor.my-meeting') }}">
+            <i class="bi bi-grid"></i>
+            <span>My Meeting</span>
+        </a>
+    </li>
     
   
 @endif

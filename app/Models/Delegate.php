@@ -25,5 +25,8 @@ class Delegate extends Model
     {
         return $this->belongsTo(Event::class);
     }
-
+    public function priority()
+    {
+        return $this->hasOne(Priority::class, 'delegates_id');
+    }
 }

@@ -57,8 +57,8 @@
                                             <i class="bi bi-calendar"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ \Carbon\Carbon::parse(Auth::guard('sponsor')->user()->event->start)->format('d F Y') }}
-                                            </h6>
+                                            <h6>{{ \Carbon\Carbon::parse(Auth::guard('sponsor')->user()->event->start)->format('d M Y') }}</h6>
+
                                         </div>
                                     </div>
                                 </div>
@@ -79,8 +79,8 @@
                                             <i class="bi bi-stopwatch"></i></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ \Carbon\Carbon::parse(Auth::guard('sponsor')->user()->event->lock_date)->format('d F Y') }}
-                                            </h6>
+                                            <h6>{{ \Carbon\Carbon::parse(Auth::guard('sponsor')->user()->event->lock_date)->format('d M Y') }}</h6>
+
                                         </div>
                                     </div>
 
@@ -101,8 +101,8 @@
                                             <i class="bi bi-calendar"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ \Carbon\Carbon::parse(Auth::guard('sponsor')->user()->event->end)->format('d F Y') }}
-                                            </h6>
+                                            <h6>{{ \Carbon\Carbon::parse(Auth::guard('sponsor')->user()->event->end)->format('d M Y') }}</h6>
+
                                         </div>
                                     </div>
 
@@ -132,73 +132,83 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Total Delagates <span>|</span></h5>
 
-                                    <table class="table table-borderless datatable">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Event Name</th>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Contact</th>
-                                                <th>Profile</th>
-                                                <th>Pic</th>
-                                                <th>Company Name</th>
-                                                <th>Company Profile</th>
-                                                <th>Company Logo</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $i = 0;
-
-                                            @endphp
-                                            @foreach ($delegates as $delegate)
+                                    <form action="{{ route('delegates.updatePriorities') }}" method="POST">
+                                        @csrf
+                                        <table class="table table-borderless datatable">
+                                            <thead>
                                                 <tr>
-                                                    <td>{{ $i++ }}</td>
-                                                    <td>{{ $delegate->event->name }}</td>
-                                                    <td>{{ $delegate->name }}</td>
-                                                    <td>{{ $delegate->email }}</td>
-                                                    <td>{{ $delegate->contact_number }}</td>
-                                                    <td>{{ $delegate->personal_profile }}</td>
-                                                    <td>
-                                                        <img src="{{ asset('storage/images/delegates/' . $delegate->personal_picture) }}"
-                                                            style="cursor: pointer" alt="{{ $delegate->personal_picture }}"
-                                                            width="100" class="clickable-image" data-toggle="modal"
-                                                            data-target="#imageModal"
-                                                            data-image="{{ asset('storage/images/delegates/' . $delegate->personal_picture) }}">
-                                                    </td>
-                                                    <td>{{ $delegate->company_name }}</td>
-                                                    <td>{{ $delegate->company_profile }}</td>
-                                                    <td>
-                                                        <img src="{{ asset('storage/images/companies/' . $delegate->company_logo) }}"
-                                                            style="cursor: pointer" alt="{{ $delegate->company_logo }}"
-                                                            width="100" class="clickable-image" data-toggle="modal"
-                                                            data-target="#imageModal"
-                                                            data-image="{{ asset('storage/images/companies/' . $delegate->company_logo) }}">
-                                                    </td>
-
-                                                    <td>
-                                                        {{-- <a href="{{ route('delegates.edit', $delegate->id) }}"
-                                                      class="btn btn-primary">Edit</a> --}}
-                                                        @if (Auth::guard('sponsor')->check() && Auth::guard('sponsor')->user()->event)
-                                                            @php
-                                                                $lockDate = Auth::guard('sponsor')->user()->event
-                                                                    ->lock_date;
-                                                            @endphp
-
-                                                            @if (Carbon\Carbon::parse($lockDate)->lessThanOrEqualTo(Carbon\Carbon::now()))
-                                                                <a href="" class="btn btn-primary">Details</a>
-                                                            @else
-                                                                <span class="badge bg-danger">Time Out</span>
-                                                            @endif
-                                                        @endif
-                                                    </td>
+                                                    <th>#</th>
+                                                    <th>Event Name</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Contact</th>
+                                                    <th>Profile</th>
+                                                    <th>Pic</th>
+                                                    <th>Company Name</th>
+                                                    <th>Company Profile</th>
+                                                    <th>Company Logo</th>
+                                                    <th >Priority</th>
+                                                    <th>Actions</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table> 
+                                            </thead>
+                                            <tbody>
+                                                @php $i = 0; @endphp
+                                                @foreach ($delegates as $delegate)
+                                                    <tr>
+                                                        <td>{{ ++$i }}</td>
+                                                        <td>{{ $delegate->event->name }}</td>
+                                                        <td>{{ $delegate->name }}</td>
+                                                        <td>{{ $delegate->email }}</td>
+                                                        <td>{{ $delegate->contact_number }}</td>
+                                                        <td>{{ $delegate->personal_profile }}</td>
+                                                        <td>
+                                                            <img src="{{ asset('storage/images/delegates/' . $delegate->personal_picture) }}" width="100" class="clickable-image" 
+                                                                data-toggle="modal" data-target="#imageModal"
+                                                                data-image="{{ asset('storage/images/delegates/' . $delegate->personal_picture) }}">
+                                                        </td>
+                                                        <td>{{ $delegate->company_name }}</td>
+                                                        <td>{{ $delegate->company_profile }}</td>
+                                                        <td>
+                                                            <img src="{{ asset('storage/images/companies/' . $delegate->company_logo) }}" width="100" class="clickable-image" 
+                                                                data-toggle="modal" data-target="#imageModal"
+                                                                data-image="{{ asset('storage/images/companies/' . $delegate->company_logo) }}">
+                                                        </td>
+                                                        <td >
+                                                            {{-- {{$delegate->priority->priority}}2121 --}}
+                                                            <input type="hidden" name="delegates[{{ $delegate->id }}][id]" value="{{ $delegate->id }}">
+                                                            <select name="delegates[{{ $delegate->id }}][priority]" class="form-select" style="width: 100%">
+                                                                <option value="0" {{ optional($delegate->priority)->priority == 0 ? 'selected' : '' }}>Select Priority</option>
+                                                                <option value="1" {{ optional($delegate->priority)->priority == 1 ? 'selected' : '' }}>1 Priority </option>
+                                                                <option value="2" {{ optional($delegate->priority)->priority == 2 ? 'selected' : '' }}>2 Priority </option>
+                                                                <option value="3" {{ optional($delegate->priority)->priority == 3 ? 'selected' : '' }}>3 Priority </option>
+                                                            </select>
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            @if (Auth::guard('sponsor')->check() && Auth::guard('sponsor')->user()->event)
+                                                                @php
+                                                                    $lockDate = Auth::guard('sponsor')->user()->event->lock_date;
+                                                                @endphp
+                                    
+                                                                @if (Carbon\Carbon::parse($lockDate)->lessThanOrEqualTo(Carbon\Carbon::now()))
+                                                                <a href="{{ route('delegate.details', $delegate->id) }}" class="btn btn-primary">Details</a>
 
+                                                                @else
+                                                                    <span class="badge bg-danger">Time Out</span>
+                                                                @endif
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    
+                                        <div class="d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-success">Submit Priorities</button>
+                                        </div>
+                                        
+                                    </form>
+                                    
                                 </div>
 
                             </div>

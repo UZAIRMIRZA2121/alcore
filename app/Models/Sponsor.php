@@ -19,6 +19,8 @@ class Sponsor extends Authenticatable
         'event_id',
         'details',
         'image',
+        'job',
+        'company_name',
         'company_details',
         'company_image',
         'phone',
