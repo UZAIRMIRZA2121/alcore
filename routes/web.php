@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\DelegateController;
+use App\Http\Controllers\QuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,8 @@ Route::get('/user/logout', function () {
     // Check if the user is authenticated
     if (Auth::check()) {
         // Retrieve the currently authenticated user
-        $user = Auth::user();;        // Update the is_online field to false
+        $user = Auth::user();
+        ;        // Update the is_online field to false
         User::where('id', $user->id)->update(['is_online' => false]);
         // Log out the user
         Auth::logout();
@@ -74,18 +76,19 @@ Route::middleware([
         Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile'); // Fix the route definition here
         Route::post('/update-profile', [AdminController::class, 'updateProfile'])->name('update.profile');
         Route::post('/change-password', [AdminController::class, 'changePassword'])->name('change.password');
-        Route::resource('doctors', DoctorController::class);
-        Route::resource('departments', DepartmentController::class);
-        Route::resource('clinics', ClinicController::class);
         Route::resource('sponsors', SponsorController::class);
         Route::resource('delegates', DelegateController::class);
         Route::resource('events', EventController::class);
         Route::get('/events/details/{id}', [EventController::class, 'details'])->name('events.details');
         Route::post('/priorities/update', [SponsorController::class, 'priorities_update'])->name('priorities.update');
         Route::get('/sponsors/{id}/meeting', [SponsorController::class, 'meeting'])->name('sponsors.meeting');
+        Route::get('/get-question-answers', [DelegateController::class, 'getQuestionAnswers'])->name('get.question.answers');
+        Route::resource('questions', QuestionController::class);
+
+
     });
     //--admin--route--end--//
-   
+
 });
 
 // Routes for sponsors

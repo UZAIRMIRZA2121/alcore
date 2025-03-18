@@ -72,7 +72,7 @@
                                                 <div class="col-lg-3 col-md-4 label">Job</div>
                                                 <div class="col-lg-9 col-md-8">{{ $delegate->job_title }}</div>
                                             </div>
-                                            <h5 class="card-title">About Sponsor</h5>
+                                            <h5 class="card-title">About Delegates</h5>
                                             <p class="small fst-italic">{{ $delegate->personal_profile }}.</p>
 
                                         </div>
@@ -85,6 +85,24 @@
                                             <h5 class="card-title">About Company</h5>
                                             <p class="small fst-italic">{{ $delegate->company_profile }}.</p>
 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-12">
+                                            <h5 class="card-title">Questions</h5>
+                                            @foreach ($delegate->answers as $answer)
+                                            <div class="row">
+                                                <label class="col-lg-12 col-md-4 label ">{{$answer->question->qus}}</label> 
+                                                <ul class="col-lg-9 col-md-8 ms-3 mb-0">
+                                                    @foreach(explode(',', $answer->answers) as $ans)
+                                                        <li>{{ trim($ans) }}</li>
+                                                    @endforeach
+                                                </ul>
+                                                
+                                            </div>
+                                            @endforeach
+                                         
+                                         
                                         </div>
                                     </div>
 

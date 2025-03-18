@@ -10,14 +10,14 @@ class Delegate extends Model
     use HasFactory;
     protected $fillable = [
         'event_id', // Add event_id to the fillable array
-        'name', 
-        'job_title', 
-        'company_name', 
-        'email', 
-        'contact_number', 
-        'personal_picture', 
-        'personal_profile', 
-        'company_profile', 
+        'name',
+        'job_title',
+        'company_name',
+        'email',
+        'contact_number',
+        'personal_picture',
+        'personal_profile',
+        'company_profile',
         'company_logo'
     ];
 
@@ -28,5 +28,10 @@ class Delegate extends Model
     public function priority()
     {
         return $this->hasOne(Priority::class, 'delegates_id');
+    }
+    // Relationship: A delegate can have multiple answers
+    public function answers()
+    {
+        return $this->hasMany(DelegateAnswer::class, 'delegate_id');
     }
 }

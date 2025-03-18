@@ -19,4 +19,8 @@ class Event extends Model
     {
         return $this->belongsTo(Sponsor::class);
     }
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 }

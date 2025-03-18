@@ -3,6 +3,10 @@
 @section('title', 'Admin-Dashboard')
 
 @section('main')
+@php
+$lockDate = Auth::guard('sponsor')->user()->event->lock_date;
+@endphp
+
     <main id="main" class="main">
 
         <div class="pagetitle">
@@ -57,7 +61,8 @@
                                             <i class="bi bi-calendar"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ \Carbon\Carbon::parse(Auth::guard('sponsor')->user()->event->start)->format('d M Y') }}</h6>
+                                            <h6>{{ \Carbon\Carbon::parse(Auth::guard('sponsor')->user()->event->start)->format('d M Y') }}
+                                            </h6>
 
                                         </div>
                                     </div>
@@ -79,7 +84,8 @@
                                             <i class="bi bi-stopwatch"></i></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ \Carbon\Carbon::parse(Auth::guard('sponsor')->user()->event->lock_date)->format('d M Y') }}</h6>
+                                            <h6>{{ \Carbon\Carbon::parse(Auth::guard('sponsor')->user()->event->lock_date)->format('d M Y') }}
+                                            </h6>
 
                                         </div>
                                     </div>
@@ -101,7 +107,8 @@
                                             <i class="bi bi-calendar"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ \Carbon\Carbon::parse(Auth::guard('sponsor')->user()->event->end)->format('d M Y') }}</h6>
+                                            <h6>{{ \Carbon\Carbon::parse(Auth::guard('sponsor')->user()->event->end)->format('d M Y') }}
+                                            </h6>
 
                                         </div>
                                     </div>
@@ -147,7 +154,7 @@
                                                     <th>Company Name</th>
                                                     <th>Company Profile</th>
                                                     <th>Company Logo</th>
-                                                    <th >Priority</th>
+                                                    <th>Priority</th>
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
@@ -162,37 +169,60 @@
                                                         <td>{{ $delegate->contact_number }}</td>
                                                         <td>{{ $delegate->personal_profile }}</td>
                                                         <td>
-                                                            <img src="{{ asset('storage/images/delegates/' . $delegate->personal_picture) }}" width="100" class="clickable-image" 
-                                                                data-toggle="modal" data-target="#imageModal"
+                                                            <img src="{{ asset('storage/images/delegates/' . $delegate->personal_picture) }}"
+                                                                width="100" class="clickable-image" data-toggle="modal"
+                                                                data-target="#imageModal"
                                                                 data-image="{{ asset('storage/images/delegates/' . $delegate->personal_picture) }}">
                                                         </td>
                                                         <td>{{ $delegate->company_name }}</td>
                                                         <td>{{ $delegate->company_profile }}</td>
                                                         <td>
-                                                            <img src="{{ asset('storage/images/companies/' . $delegate->company_logo) }}" width="100" class="clickable-image" 
-                                                                data-toggle="modal" data-target="#imageModal"
+                                                            <img src="{{ asset('storage/images/companies/' . $delegate->company_logo) }}"
+                                                                width="100" class="clickable-image" data-toggle="modal"
+                                                                data-target="#imageModal"
                                                                 data-image="{{ asset('storage/images/companies/' . $delegate->company_logo) }}">
                                                         </td>
-                                                        <td >
+                                                        <td>
                                                             {{-- {{$delegate->priority->priority}}2121 --}}
-                                                            <input type="hidden" name="delegates[{{ $delegate->id }}][id]" value="{{ $delegate->id }}">
-                                                            <select name="delegates[{{ $delegate->id }}][priority]" class="form-select" style="width: 100%">
-                                                                <option value="0" {{ optional($delegate->priority)->priority == 0 ? 'selected' : '' }}>Select Priority</option>
-                                                                <option value="1" {{ optional($delegate->priority)->priority == 1 ? 'selected' : '' }}>1 Priority </option>
-                                                                <option value="2" {{ optional($delegate->priority)->priority == 2 ? 'selected' : '' }}>2 Priority </option>
-                                                                <option value="3" {{ optional($delegate->priority)->priority == 3 ? 'selected' : '' }}>3 Priority </option>
-                                                            </select>
+
+                                                            @if (Carbon\Carbon::parse($lockDate)->lessThanOrEqualTo(Carbon\Carbon::now()))
+                                                                <input type="hidden"
+                                                                    name="delegates[{{ $delegate->id }}][id]"
+                                                                    value="{{ $delegate->id }}">
+                                                                <select name="delegates[{{ $delegate->id }}][priority]"
+                                                                    class="form-select" style="width: 100%">
+                                                                    <option value="0"
+                                                                        {{ optional($delegate->priority)->priority == 0 ? 'selected' : '' }}>
+                                                                        Select Priority</option>
+                                                                    <option value="1"
+                                                                        {{ optional($delegate->priority)->priority == 1 ? 'selected' : '' }}>
+                                                                        1 Priority </option>
+                                                                    <option value="2"
+                                                                        {{ optional($delegate->priority)->priority == 2 ? 'selected' : '' }}>
+                                                                        2 Priority </option>
+                                                                    <option value="3"
+                                                                        {{ optional($delegate->priority)->priority == 3 ? 'selected' : '' }}>
+                                                                        3 Priority </option>
+                                                                </select>
+                                                            @else
+                                                                @if (optional($delegate->priority)->priority == 1)
+                                                                    <span class="badge bg-danger">First</span>
+                                                                @elseif (optional($delegate->priority)->priority == 2)
+                                                                    <span class="badge bg-warning">Second</span>
+                                                                @elseif (optional($delegate->priority)->priority == 3)
+                                                                    <span class="badge bg-success">Third</span>
+                                                                @else
+                                                                    <span class="badge bg-secondary">Not Set</span>
+                                                                @endif
+                                                            @endif
                                                         </td>
-                                                        
+
                                                         <td>
                                                             @if (Auth::guard('sponsor')->check() && Auth::guard('sponsor')->user()->event)
-                                                                @php
-                                                                    $lockDate = Auth::guard('sponsor')->user()->event->lock_date;
-                                                                @endphp
-                                    
+                                                             
                                                                 @if (Carbon\Carbon::parse($lockDate)->lessThanOrEqualTo(Carbon\Carbon::now()))
-                                                                <a href="{{ route('delegate.details', $delegate->id) }}" class="btn btn-primary">Details</a>
-
+                                                                    <a href="{{ route('delegate.details', $delegate->id) }}"
+                                                                        class="btn btn-primary">Details</a>
                                                                 @else
                                                                     <span class="badge bg-danger">Time Out</span>
                                                                 @endif
@@ -202,13 +232,14 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                    
-                                        <div class="d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-success">Submit Priorities</button>
-                                        </div>
-                                        
+                                        @if (Carbon\Carbon::parse($lockDate)->lessThanOrEqualTo(Carbon\Carbon::now()))
+                                            <div class="d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-success">Submit Priorities</button>
+                                            </div>
+                                        @endif
+
                                     </form>
-                                    
+
                                 </div>
 
                             </div>
