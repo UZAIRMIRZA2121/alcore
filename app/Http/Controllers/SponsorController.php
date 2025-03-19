@@ -113,6 +113,42 @@ class SponsorController extends Controller
         return redirect()->back()
             ->with('success', 'Sponsor updated successfully.');
     }
+    public function self_update(Request $request)
+    {
+        $user = Auth::guard('sponsor')->user();
+
+        $request->validate([
+            'fullName' => 'required|string|max:255',
+            'about' => 'nullable|string',
+            'company' => 'nullable|string|max:255',
+            'job' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'email' => 'required|email|unique:sponsors,email,' . $user->id,
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        // Handle profile image upload
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($user->image) {
+                Storage::delete('public/' . $user->image);
+            }
+            $imagePath = $request->file('image')->store('profile_images', 'public');
+            $user->image = $imagePath;
+        }
+
+        // Update user details
+        $user->username = $request->fullName;
+        $user->details = $request->about;
+        $user->company_name = $request->company;
+        $user->job = $request->job;
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Profile updated successfully.');
+    }
 
 
 
@@ -214,28 +250,32 @@ class SponsorController extends Controller
     }
     public function updatePriorities(Request $request)
     {
+        $delegates = $request->input('delegates');
 
-
-        // Get sponsor ID
-        $sponsorId = Auth::guard('sponsor')->id();
-        $eventId = Auth::guard('sponsor')->user()->event_id; // Assuming event_id is accessible via sponsor
-
-        foreach ($request->delegates as $delegateData) {
-            Priority::updateOrCreate(
-                [
-                    'event_id' => $eventId,
-                    'sponsor_id' => $sponsorId,
-                    'delegates_id' => $delegateData['id'],
-                ],
-                [
-                    'priority' => $delegateData['priority'],
-                    'status' => 'active', // Default status (adjust as needed)
-                ]
-            );
+        if (!$delegates) {
+            return redirect()->back()->with('error', 'No data received!');
         }
 
-        return back()->with('success', 'Priorities updated successfully!');
+        $sponsorId = Auth::guard('sponsor')->id();
+        $eventId = Auth::guard('sponsor')->user()->event_id;
+
+        foreach ($delegates as $delegateData) {
+            $priority = Priority::firstOrNew([
+                'event_id' => $eventId,
+                'sponsor_id' => $sponsorId,
+                'delegates_id' => $delegateData['id'],
+            ]);
+
+            $priority->priority = $delegateData['priority'];
+            $priority->status = 'active';
+            $priority->save();
+        }
+      
+        return redirect()->back()->with('success', 'Priorities updated successfully!');
     }
+
+
+
 
     public function priorities_update(Request $request)
     {
@@ -259,6 +299,17 @@ class SponsorController extends Controller
     {
         $delegate = Delegate::findOrFail($id);
         return view('sponsors.delegate-details', compact('delegate'));
+    }
+
+    public function my_meeting()
+    {
+        $sponsor = Auth::guard('sponsor')->user();
+        $priorities = Priority::where('sponsor_id', $sponsor->id)
+        ->with(['sponsor', 'event', 'delegate'])
+        ->get();
+
+       
+        return view('sponsors.meetings', compact('priorities'));
     }
 
 }

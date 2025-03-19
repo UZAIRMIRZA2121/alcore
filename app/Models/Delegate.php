@@ -27,8 +27,10 @@ class Delegate extends Model
     }
     public function priority()
     {
-        return $this->hasOne(Priority::class, 'delegates_id');
+        return $this->hasOne(Priority::class, 'delegates_id')
+                    ->where('sponsor_id', auth()->guard('sponsor')->id());
     }
+    
     // Relationship: A delegate can have multiple answers
     public function answers()
     {

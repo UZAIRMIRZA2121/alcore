@@ -96,10 +96,12 @@ Route::middleware(['auth:sponsor'])->group(function () {
     // Define your sponsor routes here
     Route::get('/sponsor/dashboard', [SponsorController::class, 'dashboard'])->name('sponsor.dashboard');
     Route::get('/sponsor/profile', [SponsorController::class, 'profile'])->name('sponsor.profile');
+    Route::post('/sponsor/profile/update', [SponsorController::class, 'self_update'])->name('sponsor.profile.update');
     // Add more routes as needed
-    Route::post('/update-priorities', [SponsorController::class, 'updatePriorities'])->name('delegates.updatePriorities');
+    Route::post('/delegates/update-priorities', [SponsorController::class, 'updatePriorities'])->name('delegates.updatePriorities');
+
     Route::get('/delegate/{id}', [SponsorController::class, 'delegate_show'])->name('delegate.details');
 
-    Route::get('/sponsor/my-meeting', [SponsorController::class, 'my_meeting'])->name('sponsor.my-meeting');
+    Route::get('/sponsor/my-meeting', [SponsorController::class, 'my_meeting'])->name('sponsor.meeting');
 
 });

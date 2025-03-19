@@ -186,6 +186,7 @@ $lockDate = Auth::guard('sponsor')->user()->event->lock_date;
                                                             {{-- {{$delegate->priority->priority}}2121 --}}
 
                                                             @if (Carbon\Carbon::parse($lockDate)->lessThanOrEqualTo(Carbon\Carbon::now()))
+                                                    
                                                                 <input type="hidden"
                                                                     name="delegates[{{ $delegate->id }}][id]"
                                                                     value="{{ $delegate->id }}">
