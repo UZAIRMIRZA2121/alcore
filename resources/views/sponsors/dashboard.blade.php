@@ -184,7 +184,7 @@ $lockDate = Auth::guard('sponsor')->user()->event->lock_date;
                                                         </td>
                                                         <td>
                                                             {{-- {{$delegate->priority->priority}}2121 --}}
-
+                                                            {{Carbon\Carbon::now()}}
                                                             @if (Carbon\Carbon::parse($lockDate)->lessThanOrEqualTo(Carbon\Carbon::now()))
                                                     
                                                                 <input type="hidden"
