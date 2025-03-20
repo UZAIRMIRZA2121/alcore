@@ -145,15 +145,10 @@ $lockDate = Auth::guard('sponsor')->user()->event->lock_date;
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Event Name</th>
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Contact</th>
-                                                    <th>Profile</th>
-                                                    <th>Pic</th>
                                                     <th>Company Name</th>
-                                                    <th>Company Profile</th>
-                                                    <th>Company Logo</th>
                                                     <th>Priority</th>
                                                     <th>Actions</th>
                                                 </tr>
@@ -163,25 +158,10 @@ $lockDate = Auth::guard('sponsor')->user()->event->lock_date;
                                                 @foreach ($delegates as $delegate)
                                                     <tr>
                                                         <td>{{ ++$i }}</td>
-                                                        <td>{{ $delegate->event->name }}</td>
                                                         <td>{{ $delegate->name }}</td>
                                                         <td>{{ $delegate->email }}</td>
                                                         <td>{{ $delegate->contact_number }}</td>
-                                                        <td>{{ $delegate->personal_profile }}</td>
-                                                        <td>
-                                                            <img src="{{ asset('storage/images/delegates/' . $delegate->personal_picture) }}"
-                                                                width="100" class="clickable-image" data-toggle="modal"
-                                                                data-target="#imageModal"
-                                                                data-image="{{ asset('storage/images/delegates/' . $delegate->personal_picture) }}">
-                                                        </td>
                                                         <td>{{ $delegate->company_name }}</td>
-                                                        <td>{{ $delegate->company_profile }}</td>
-                                                        <td>
-                                                            <img src="{{ asset('storage/images/companies/' . $delegate->company_logo) }}"
-                                                                width="100" class="clickable-image" data-toggle="modal"
-                                                                data-target="#imageModal"
-                                                                data-image="{{ asset('storage/images/companies/' . $delegate->company_logo) }}">
-                                                        </td>
                                                         <td>
                                                           
                                                             @if (Carbon\Carbon::parse($lockDate)->greaterThanOrEqualTo(Carbon\Carbon::now()))

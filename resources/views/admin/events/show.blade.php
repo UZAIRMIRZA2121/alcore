@@ -149,12 +149,12 @@
                                             aria-controls="profile" aria-selected="false" tabindex="-1">Delegates <span
                                                 class="badge rounded-pill bg-info">{{ $delegates->count() }}</span></button>
                                     </li>
-                                    <li class="nav-item flex-fill" role="presentation">
+                                    {{-- <li class="nav-item flex-fill" role="presentation">
                                         <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab"
                                             data-bs-target="#bordered-justified-priorities" type="button" role="tab"
                                             aria-controls="profile" aria-selected="false" tabindex="-1">Meeting <span
                                                 class="badge rounded-pill bg-info"></span></button>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                                 <div class="tab-content pt-2" id="borderedTabJustifiedContent">
                                     <div class="tab-pane fade active show" id="bordered-justified-home" role="tabpanel"
@@ -201,8 +201,9 @@
                                                                     </td>
                                                                     <td><img src="{{ asset('storage/' . $sponsor->company_image) }}"
                                                                             alt="Sponsor Image" width="50">
-                                                                    <td>{{ $sponsor->details }}</td>
-                                                                    <td>{{ $sponsor->company_details }}</td>
+                                                                    <td>{{ \Illuminate\Support\Str::limit($sponsor->details, 30) }}</td>
+                                                                    <td>{{ \Illuminate\Support\Str::limit($sponsor->company_details, 30) }}</td>
+
                                                                     <td>
                                                                         <a href="{{ route('sponsors.meeting', $sponsor->id) }}"
                                                                             class="btn btn-sm btn-warning">Meeting</a>
