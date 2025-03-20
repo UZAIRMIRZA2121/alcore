@@ -79,8 +79,8 @@
                                         <div class="col-lg-6 col-md-12">
                                             <h5 class="card-title">Company Details</h5>
                                             <div class="row">
-                                                <div class="col-lg-3 col-md-4 label">Company</div>
-                                                <div class="col-lg-9 col-md-8">{{ $delegate->company_name }}</div>
+                                                <div class="col-lg-5 col-md-4 label">Company</div>
+                                                <div class="col-lg-7 col-md-8">{{ $delegate->company_name }}</div>
                                             </div>
                                             <h5 class="card-title">About Company</h5>
                                             <p class="small fst-italic">{{ $delegate->company_profile }}.</p>
