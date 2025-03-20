@@ -284,7 +284,7 @@
                                     <div class="col-lg-9 col-md-8">{{ Auth::guard('sponsor')->user()->event->name }}</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Job</div>
+                                    <div class="col-lg-3 col-md-4 label">Job Title</div>
                                     <div class="col-lg-9 col-md-8">{{ Auth::guard('sponsor')->user()->job }}</div>
                                 </div>
                                 <h5 class="card-title">About Sponsor</h5>
