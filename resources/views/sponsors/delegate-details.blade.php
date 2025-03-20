@@ -54,8 +54,8 @@
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                     <div class="row">
                                         <div class="col-lg-6 col-md-12">
-                                            <h5 class="card-title">Profile Details</h5>
-                                            <div class="row">
+                                            {{-- <h5 class="card-title">Profile Details</h5> --}}
+                                            {{-- <div class="row">
                                                 <div class="col-lg-3 col-md-4 label ">Name</div>
                                                 <div class="col-lg-9 col-md-8">{{ $delegate->name }}</div>
                                             </div>
@@ -71,7 +71,7 @@
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-4 label">Job</div>
                                                 <div class="col-lg-9 col-md-8">{{ $delegate->job_title }}</div>
-                                            </div>
+                                            </div> --}}
                                             <h5 class="card-title">About Delegates</h5>
                                             <p class="small fst-italic">{{ $delegate->personal_profile }}.</p>
 
