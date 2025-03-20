@@ -226,7 +226,7 @@
   
                 <img src="{{ asset('storage/' . Auth::guard('sponsor')->user()->image) }}" alt="Profile" class="rounded-circle">
                 <h2>{{ Auth::guard('sponsor')->user()->username }}</h2>
-                <h3>Sponsor</h3>
+                <h3>{{ Auth::guard('sponsor')->user()->job }}</h3>
               
               </div>
             </div>
@@ -235,7 +235,7 @@
   
                 <img src="{{ asset('storage/' . Auth::guard('sponsor')->user()->company_image) }}" alt="Profile" class="rounded-circle">
                 <h2>{{ Auth::guard('sponsor')->user()->company_name }}</h2>
-                <h3>Sponsor</h3>
+              
               
               </div>
             </div>
