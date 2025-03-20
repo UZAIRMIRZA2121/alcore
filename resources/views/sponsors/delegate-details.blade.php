@@ -89,7 +89,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6 col-md-12">
-                                            <h5 class="card-title">Questions</h5>
+                                            <h5 class="card-title">Event Questionnaire</h5>
                                             @foreach ($delegate->answers as $answer)
                                             <div class="row">
                                                 <label class="col-lg-12 col-md-4 label ">{{$answer->question->qus}}</label> 
