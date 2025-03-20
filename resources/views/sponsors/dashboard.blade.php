@@ -183,9 +183,7 @@ $lockDate = Auth::guard('sponsor')->user()->event->lock_date;
                                                                 data-image="{{ asset('storage/images/companies/' . $delegate->company_logo) }}">
                                                         </td>
                                                         <td>
-                                                            {{-- {{$delegate->priority->priority}}2121 --}}
-                                                            {{Carbon\Carbon::now()}}
-                                                            {{$lockDate}}
+                                                          
                                                             @if (Carbon\Carbon::parse($lockDate)->greaterThanOrEqualTo(Carbon\Carbon::now()))
                                                     
                                                                 <input type="hidden"
@@ -222,7 +220,7 @@ $lockDate = Auth::guard('sponsor')->user()->event->lock_date;
                                                         <td>
                                                             @if (Auth::guard('sponsor')->check() && Auth::guard('sponsor')->user()->event)
                                                              
-                                                                @if (Carbon\Carbon::parse($lockDate)->lessThanOrEqualTo(Carbon\Carbon::now()))
+                                                                @if (Carbon\Carbon::parse($lockDate)->greaterThanOrEqualTo(Carbon\Carbon::now()))
                                                                     <a href="{{ route('delegate.details', $delegate->id) }}"
                                                                         class="btn btn-primary">Details</a>
                                                                 @else
@@ -234,7 +232,7 @@ $lockDate = Auth::guard('sponsor')->user()->event->lock_date;
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                        @if (Carbon\Carbon::parse($lockDate)->lessThanOrEqualTo(Carbon\Carbon::now()))
+                                        @if (Carbon\Carbon::parse($lockDate)->greaterThanOrEqualTo(Carbon\Carbon::now()))
                                             <div class="d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-success">Submit Priorities</button>
                                             </div>

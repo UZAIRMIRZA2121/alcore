@@ -1,6 +1,6 @@
 @extends('layouts.admin.master')
 
-@section('title', 'Admin-Dashboard')
+@section('title', 'Sponsor-Dashboard')
 
 @section('main')
     <main id="main" class="main">

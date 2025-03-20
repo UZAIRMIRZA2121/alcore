@@ -1,6 +1,6 @@
 @extends('layouts.admin.master')
 
-@section('title', 'Admin-Dashboard')
+@section('title', 'Sponsor-Dashboard')
 
 @section('main')
 <main id="main" class="main">
@@ -230,9 +230,17 @@
               
               </div>
             </div>
+            <div class="card">
+              <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+  
+                <img src="{{ asset('storage/' . Auth::guard('sponsor')->user()->company_image) }}" alt="Profile" class="rounded-circle">
+                <h2>{{ Auth::guard('sponsor')->user()->company_name }}</h2>
+                <h3>Sponsor</h3>
+              
+              </div>
+            </div>
   
           </div>
-  
           <div class="col-xl-8">
   
             <div class="card">
@@ -258,33 +266,46 @@
    --}}
                 </ul>
                 <div class="tab-content pt-2">
-  
-                  <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                    <h5 class="card-title">About</h5>
-                    <p class="small fst-italic">{{ Auth::guard('sponsor')->user()->details }}</p>
-  
-                    <h5 class="card-title">Profile Details</h5>
-  
-                    <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                      <div class="col-lg-9 col-md-8">{{ Auth::guard('sponsor')->user()->username }}</div>
+                    <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <h5 class="card-title">Profile Details</h5>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                    <div class="col-lg-9 col-md-8">{{ Auth::guard('sponsor')->user()->username }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Email</div>
+                                    <div class="col-lg-9 col-md-8">{{ Auth::guard('sponsor')->user()->email }}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Event</div>
+                                    <div class="col-lg-9 col-md-8">{{ Auth::guard('sponsor')->user()->event->name }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Job</div>
+                                    <div class="col-lg-9 col-md-8">{{ Auth::guard('sponsor')->user()->job }}</div>
+                                </div>
+                                <h5 class="card-title">About Sponsor</h5>
+                                <p class="small fst-italic">{{ Auth::guard('sponsor')->user()->details }}.</p>
+
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <h5 class="card-title">Company Details</h5>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Company</div>
+                                    <div class="col-lg-9 col-md-8">{{ Auth::guard('sponsor')->user()->company_name }}</div>
+                                </div>
+                                <h5 class="card-title">About Company</h5>
+                                <p class="small fst-italic">{{ Auth::guard('sponsor')->user()->company_details }}.</p>
+
+                            </div>
+                        </div>
+
+
+
                     </div>
-  
-                    <div class="row">
-                      <div class="col-lg-3 col-md-4 label">Company</div>
-                      <div class="col-lg-9 col-md-8">{{ Auth::guard('sponsor')->user()->company_details }}</div>
-                    </div>
-  
-                    <div class="row">
-                      <div class="col-lg-3 col-md-4 label">Job</div>
-                      <div class="col-lg-9 col-md-8">{{ Auth::guard('sponsor')->user()->job }}</div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-3 col-md-4 label">Email</div>
-                      <div class="col-lg-9 col-md-8">{{ Auth::guard('sponsor')->user()->email }}</div>
-                    </div>
-  
-                  </div>
   
                   <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
   
