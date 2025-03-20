@@ -35,11 +35,8 @@
                                                 <th>Delegate Name</th>
                                                 <th>Email</th>
                                                 {{-- <th>Contact</th> --}}
-                                                <th>Profile</th>
                                                 <th>Pic</th>
                                                 <th>Company Name</th>
-                                                <th>Company Profile</th>
-                                                <th>Company Logo</th>
                                                 <th>Priority</th>
                                                 <th>Start Meeting</th>
                                                 <th>End Meeting</th>
@@ -53,7 +50,6 @@
                                                     <td>{{ $prioritie->delegate->name }}</td>
                                                     <td>{{ $prioritie->delegate->email }}</td>
                                                     {{-- <td>{{ $prioritie->delegate->contact_number }}</td> --}}
-                                                    <td>{{ $prioritie->delegate->personal_profile }}</td>
                                                     <td>
                                                         <img src="{{ asset('storage/images/delegates/' . $prioritie->delegate->personal_picture) }}"
                                                             width="100" class="clickable-image" data-toggle="modal"
@@ -61,13 +57,7 @@
                                                             data-image="{{ asset('storage/images/delegates/' . $prioritie->delegate->personal_picture) }}">
                                                     </td>
                                                     <td>{{ $prioritie->delegate->company_name }}</td>
-                                                    <td>{{ $prioritie->delegate->company_profile }}</td>
-                                                    <td>
-                                                        <img src="{{ asset('storage/images/companies/' . $prioritie->delegate->company_logo) }}"
-                                                            width="100" class="clickable-image" data-toggle="modal"
-                                                            data-target="#imageModal"
-                                                            data-image="{{ asset('storage/images/companies/' . $prioritie->delegate->company_logo) }}">
-                                                    </td>
+                                                 
                                                     <td>
                                                         @if (optional($prioritie->delegate->priority)->priority == 1)
                                                         <span class="badge bg-danger">First</span>

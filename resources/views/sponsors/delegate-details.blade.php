@@ -95,7 +95,7 @@
                                                 <label class="col-lg-12 col-md-4 label ">{{$answer->question->qus}}</label> 
                                                 <ul class="col-lg-9 col-md-8 ms-3 mb-0">
                                                     @foreach(explode(',', $answer->answers) as $ans)
-                                                        <li>{{ trim($ans) }}</li>
+                                                        <li> <b> {{ trim($ans) }}</b></li>
                                                     @endforeach
                                                 </ul>
                                                 
