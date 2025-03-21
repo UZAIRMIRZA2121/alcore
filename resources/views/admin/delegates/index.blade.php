@@ -65,19 +65,25 @@
                                             <td>{{ $delegate->name }}</td>
                                             <td>{{ $delegate->email }}</td>
                                             <td>{{ $delegate->contact_number }}</td>
-                                            <td>{{ $delegate->personal_profile }}</td>
+                                            <td>{{ \Illuminate\Support\Str::limit($delegate->personal_profile, 10, '...') }}
+                                            </td>
+
                                             <td>
-                                                <img src="{{ asset('storage/images/delegates/' . $delegate->personal_picture) }}" style="cursor: pointer"
-                                                    alt="{{ $delegate->personal_picture }}" width="100"
-                                                    class="clickable-image" data-toggle="modal" data-target="#imageModal"
+                                                <img src="{{ asset('storage/images/delegates/' . $delegate->personal_picture) }}"
+                                                    style="cursor: pointer" alt="{{ $delegate->personal_picture }}"
+                                                    width="100" class="clickable-image" data-toggle="modal"
+                                                    data-target="#imageModal"
                                                     data-image="{{ asset('storage/images/delegates/' . $delegate->personal_picture) }}">
                                             </td>
                                             <td>{{ $delegate->company_name }}</td>
-                                            <td>{{ $delegate->company_profile }}</td>
+                                            <td>{{ \Illuminate\Support\Str::limit($delegate->company_profile, 10, '...') }}
+                                            </td>
+
                                             <td>
-                                                <img src="{{ asset('storage/images/companies/' . $delegate->company_logo) }}" style="cursor: pointer"
-                                                    alt="{{ $delegate->company_logo }}" width="100"
-                                                    class="clickable-image" data-toggle="modal" data-target="#imageModal"
+                                                <img src="{{ asset('storage/images/companies/' . $delegate->company_logo) }}"
+                                                    style="cursor: pointer" alt="{{ $delegate->company_logo }}"
+                                                    width="100" class="clickable-image" data-toggle="modal"
+                                                    data-target="#imageModal"
                                                     data-image="{{ asset('storage/images/companies/' . $delegate->company_logo) }}">
                                             </td>
 
