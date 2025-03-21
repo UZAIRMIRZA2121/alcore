@@ -36,7 +36,7 @@
             {{-- <a href="index.html" class="logo me-auto"><img src="{{ asset('frontend/assets/img/logo.png') }}"
                     alt=""></a> --}}
             <!-- Uncomment below if you prefer to use an image logo -->
-           <h1 class="logo me-auto"><a href="index.html">Alcor</a></h1>
+           <h1 class="logo me-auto"><a href="">Awlschedule</a></h1>
 
 
          
