@@ -71,8 +71,10 @@
                                                 <td><img src="{{ asset('storage/' . $sponsor->image) }}" alt="Sponsor Image" width="50">
                                                 </td>
                                                 <td><img src="{{ asset('storage/' . $sponsor->company_image) }}" alt="Sponsor Image" width="50">
-                                                <td>{{ $sponsor->details }}</td>
-                                                <td>{{ $sponsor->company_details }}</td>
+                                            
+                                                <td>{{ \Illuminate\Support\Str::limit($sponsor->details, 10, '...') }}</td>
+                                                <td>{{ \Illuminate\Support\Str::limit($sponsor->company_details, 10, '...') }}</td>
+
                                                 <td>
                                                     <a href="{{ route('sponsors.show', $sponsor->id) }}"
                                                         class="btn btn-sm btn-warning">Details</a>
