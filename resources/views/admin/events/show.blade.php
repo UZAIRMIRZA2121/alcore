@@ -205,6 +205,8 @@
                                                                     <td>{{ \Illuminate\Support\Str::limit($sponsor->company_details, 30) }}</td>
 
                                                                     <td>
+                                                                        <a href="{{ route('sponsors.downloadPDF', $sponsor->id) }}" class="btn btn-sm btn-primary">Report</a>
+
                                                                         <a href="{{ route('sponsors.meeting', $sponsor->id) }}"
                                                                             class="btn btn-sm btn-warning">Meeting</a>
                                                                         <a href="{{ route('sponsors.edit', $sponsor->id) }}"
@@ -286,8 +288,10 @@
                                                                     </td>
 
                                                                     <td>
+                                                                        <a href="{{ route('delegate.downloadPDF', $delegate->id) }}" class="btn btn-sm btn-primary m-1">Report</a>
+
                                                                         <a href="{{ route('delegates.edit', $delegate->id) }}"
-                                                                            class="btn btn-primary btn-sm">Edit</a>
+                                                                            class="btn btn-warning btn-sm">Edit</a>
                                                                         <form
                                                                             action="{{ route('delegates.destroy', $delegate->id) }}"
                                                                             method="POST" style="display: inline;">

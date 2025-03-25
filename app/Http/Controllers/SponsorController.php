@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SponsorController extends Controller
 {
@@ -270,7 +271,7 @@ class SponsorController extends Controller
             $priority->status = 'active';
             $priority->save();
         }
-      
+
         return redirect()->back()->with('success', 'Priorities updated successfully!');
     }
 
@@ -305,11 +306,31 @@ class SponsorController extends Controller
     {
         $sponsor = Auth::guard('sponsor')->user();
         $priorities = Priority::where('sponsor_id', $sponsor->id)
-        ->with(['sponsor', 'event', 'delegate'])
+            ->with(['sponsor', 'event', 'delegate'])
+            ->get();
+
+
+        return view('sponsors.meetings', compact('priorities'));
+    }
+    // public function downloadPDF($id)
+    // {
+    //     $sponsor = Sponsor::findOrFail($id);
+    //     $priorities = Priority::where('sponsor_id' , $id )->get();
+    //     //  Load the view and pass the data
+    //      $pdf = Pdf::loadView('admin.sponsor-priority-pdf', compact('sponsor','priorities'));
+    
+    //     //  Download the file with a meaningful name
+    //      return $pdf->download('sponsor-priority-' . $sponsor->id . '.pdf');
+    // }
+    public function downloadPDF($id)
+    {
+        $sponsor = Sponsor::findOrFail($id);
+        $priorities = Priority::where('sponsor_id', $id)
+        ->whereNotNull('start_time')
         ->get();
 
-       
-        return view('sponsors.meetings', compact('priorities'));
+        return view('admin.sponsor-priority-pdf',compact('sponsor','priorities'));
+     
     }
 
 }

@@ -14,6 +14,8 @@ use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\DelegateController;
 use App\Http\Controllers\QuestionController;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -84,7 +86,8 @@ Route::middleware([
         Route::get('/sponsors/{id}/meeting', [SponsorController::class, 'meeting'])->name('sponsors.meeting');
         Route::get('/get-question-answers', [DelegateController::class, 'getQuestionAnswers'])->name('get.question.answers');
         Route::resource('questions', QuestionController::class);
-
+        Route::get('/sponsors/{id}/download-pdf', action: [SponsorController::class, 'downloadPDF'])->name('sponsors.downloadPDF');
+        Route::get('/delegate/{id}/download-pdf', action: [DelegateController::class, 'downloadPDF'])->name('delegate.downloadPDF');
 
     });
     //--admin--route--end--//
