@@ -205,26 +205,26 @@ class DelegateController extends Controller
         return response()->json(['success' => false]);
     }
 
-    // public function downloadPDF($id)
-    // {
-    //     $sponsor = Sponsor::findOrFail($id);
-    //     $priorities = Priority::where('sponsor_id' , $id )->get();
-    //     //  Load the view and pass the data
-    //      $pdf = Pdf::loadView('admin.sponsor-priority-pdf', compact('sponsor','priorities'));
-    
-    //     //  Download the file with a meaningful name
-    //      return $pdf->download('sponsor-priority-' . $sponsor->id . '.pdf');
-    // }
     public function downloadPDF($id)
     {
-       
-        $delegate = Delegate::findOrFail($id);
-        $priorities = Priority::where('delegates_id', $id)
-        ->whereNotNull('start_time')
-        ->get();
-
-        return view('admin.delegate-priority-pdf',compact('delegate','priorities'));
-     
+        $sponsor = Sponsor::findOrFail($id);
+        $priorities = Priority::where('sponsor_id' , $id )->get();
+        //  Load the view and pass the data
+         $pdf = Pdf::loadView('admin.sponsor-priority-pdf', compact('sponsor','priorities'));
+    
+        //  Download the file with a meaningful name
+         return $pdf->download('sponsor-priority-' . $sponsor->id . '.pdf');
     }
+    // public function downloadPDF($id)
+    // {
+       
+    //     $delegate = Delegate::findOrFail($id);
+    //     $priorities = Priority::where('delegates_id', $id)
+    //     ->whereNotNull('start_time')
+    //     ->get();
+
+    //     return view('admin.delegate-priority-pdf',compact('delegate','priorities'));
+     
+    // }
 
 }

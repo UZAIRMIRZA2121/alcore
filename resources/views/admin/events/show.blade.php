@@ -267,7 +267,7 @@
                                                                     <td>{{ $delegate->name }}</td>
                                                                     <td>{{ $delegate->email }}</td>
                                                                     <td>{{ $delegate->contact_number }}</td>
-                                                                    <td>{{ $delegate->personal_profile }}</td>
+                                                                    <td>{{ \Illuminate\Support\Str::limit($delegate->personal_profile, 30) }}</td>
                                                                     <td>
                                                                         <img src="{{ asset('storage/images/delegates/' . $delegate->personal_picture) }}"
                                                                             style="cursor: pointer"
@@ -277,7 +277,7 @@
                                                                             data-image="{{ asset('storage/images/delegates/' . $delegate->personal_picture) }}">
                                                                     </td>
                                                                     <td>{{ $delegate->company_name }}</td>
-                                                                    <td>{{ $delegate->company_profile }}</td>
+                                                                    <td>{{ \Illuminate\Support\Str::limit($delegate->company_profile , 30) }}</td>
                                                                     <td>
                                                                         <img src="{{ asset('storage/images/companies/' . $delegate->company_logo) }}"
                                                                             style="cursor: pointer"

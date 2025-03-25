@@ -312,25 +312,25 @@ class SponsorController extends Controller
 
         return view('sponsors.meetings', compact('priorities'));
     }
-    // public function downloadPDF($id)
-    // {
-    //     $sponsor = Sponsor::findOrFail($id);
-    //     $priorities = Priority::where('sponsor_id' , $id )->get();
-    //     //  Load the view and pass the data
-    //      $pdf = Pdf::loadView('admin.sponsor-priority-pdf', compact('sponsor','priorities'));
-    
-    //     //  Download the file with a meaningful name
-    //      return $pdf->download('sponsor-priority-' . $sponsor->id . '.pdf');
-    // }
     public function downloadPDF($id)
     {
         $sponsor = Sponsor::findOrFail($id);
-        $priorities = Priority::where('sponsor_id', $id)
-        ->whereNotNull('start_time')
-        ->get();
-
-        return view('admin.sponsor-priority-pdf',compact('sponsor','priorities'));
-     
+        $priorities = Priority::where('sponsor_id' , $id )->get();
+        //  Load the view and pass the data
+         $pdf = Pdf::loadView('admin.sponsor-priority-pdf', compact('sponsor','priorities'));
+    
+        //  Download the file with a meaningful name
+         return $pdf->download('sponsor-priority-' . $sponsor->id . '.pdf');
     }
+    // public function downloadPDF($id)
+    // {
+    //     $sponsor = Sponsor::findOrFail($id);
+    //     $priorities = Priority::where('sponsor_id', $id)
+    //     ->whereNotNull('start_time')
+    //     ->get();
+
+    //     return view('admin.sponsor-priority-pdf',compact('sponsor','priorities'));
+     
+    // }
 
 }
