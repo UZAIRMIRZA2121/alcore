@@ -176,13 +176,13 @@ $lockDate = Auth::guard('sponsor')->user()->event->lock_date;
                                                                         Select Priority</option>
                                                                     <option value="1"
                                                                         {{ optional($delegate->priority)->priority == 1 ? 'selected' : '' }}>
-                                                                        1 Priority </option>
+                                                                        1st Priority </option>
                                                                     <option value="2"
                                                                         {{ optional($delegate->priority)->priority == 2 ? 'selected' : '' }}>
-                                                                        2 Priority </option>
+                                                                        2nd Priority </option>
                                                                     <option value="3"
                                                                         {{ optional($delegate->priority)->priority == 3 ? 'selected' : '' }}>
-                                                                        3 Priority </option>
+                                                                        3rd Priority </option>
                                                                 </select>
                                                             @else
                                                                 @if (optional($delegate->priority)->priority == 1)

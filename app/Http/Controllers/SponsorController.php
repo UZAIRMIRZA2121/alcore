@@ -320,7 +320,7 @@ class SponsorController extends Controller
          $pdf = Pdf::loadView('admin.sponsor-priority-pdf', compact('sponsor','priorities'));
     
         //  Download the file with a meaningful name
-         return $pdf->download('sponsor-priority-' . $sponsor->id . '.pdf');
+         return $pdf->download('sponsor-priority-' . $sponsor->username . '.pdf');
     }
     // public function downloadPDF($id)
     // {

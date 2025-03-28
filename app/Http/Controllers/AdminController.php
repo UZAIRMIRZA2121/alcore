@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Delegate;
 use App\Models\Event;
 use App\Models\Sponsor;
 use App\Models\User;
@@ -17,6 +18,7 @@ class AdminController extends Controller
         $events = Event::all();
         $users = User::all();
         $sponsor = Sponsor::all();
+        $delegates = Delegate::all();
         
         // Update status of events where end date is less than current date
         foreach ($events as $event) {
@@ -25,7 +27,7 @@ class AdminController extends Controller
             }
         }
         
-        return view('admin.index', compact('events', 'users', 'sponsor'));
+        return view('admin.index', compact('events', 'users', 'sponsor','delegates'));
     }
     public function profile()
     {

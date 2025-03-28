@@ -11,6 +11,7 @@ use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DelegateController extends Controller
 {
@@ -207,13 +208,13 @@ class DelegateController extends Controller
 
     public function downloadPDF($id)
     {
-        $sponsor = Sponsor::findOrFail($id);
-        $priorities = Priority::where('sponsor_id' , $id )->get();
+        $delegate = Delegate::findOrFail($id);
+        $priorities = Priority::where('delegates_id' , $id )->get();
         //  Load the view and pass the data
-         $pdf = Pdf::loadView('admin.sponsor-priority-pdf', compact('sponsor','priorities'));
+         $pdf = Pdf::loadView('admin.delegate-priority-pdf', compact('delegate','priorities'));
     
         //  Download the file with a meaningful name
-         return $pdf->download('sponsor-priority-' . $sponsor->id . '.pdf');
+         return $pdf->download('delegate-priority-' . $delegate->name . '.pdf');
     }
     // public function downloadPDF($id)
     // {
