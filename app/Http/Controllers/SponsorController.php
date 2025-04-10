@@ -306,31 +306,40 @@ class SponsorController extends Controller
     {
         $sponsor = Auth::guard('sponsor')->user();
         $priorities = Priority::where('sponsor_id', $sponsor->id)
+            ->whereNotNull('start_time')
+            ->whereNotNull('end_time')
             ->with(['sponsor', 'event', 'delegate'])
             ->get();
 
 
         return view('sponsors.meetings', compact('priorities'));
     }
-    public function downloadPDF($id)
-    {
-        $sponsor = Sponsor::findOrFail($id);
-        $priorities = Priority::where('sponsor_id' , $id )->get();
-        //  Load the view and pass the data
-         $pdf = Pdf::loadView('admin.sponsor-priority-pdf', compact('sponsor','priorities'));
-    
-        //  Download the file with a meaningful name
-         return $pdf->download('sponsor-priority-' . $sponsor->username . '.pdf');
-    }
     // public function downloadPDF($id)
     // {
     //     $sponsor = Sponsor::findOrFail($id);
-    //     $priorities = Priority::where('sponsor_id', $id)
-    //     ->whereNotNull('start_time')
-    //     ->get();
+    //     $priorities = Priority::where('sponsor_id', $id)->get();
+    //     //  Load the view and pass the data
+    //     $pdf = Pdf::loadView('admin.sponsor-priority-pdf', compact('sponsor', 'priorities'));
 
-    //     return view('admin.sponsor-priority-pdf',compact('sponsor','priorities'));
-     
+    //     //  Download the file with a meaningful name
+    //     return $pdf->download('sponsor-priority-' . $sponsor->username . '.pdf');
     // }
+    public function downloadPDF($id)
+    {
+        $sponsor = Sponsor::findOrFail($id);
+        $priorities = Priority::where('sponsor_id', $id)
+        ->orderBy('start_time', 'asc')
+
+        ->whereNotNull('start_time')
+        ->get();
+        // return view('admin.sponsor-priority-pdf',compact('sponsor','priorities'));
+
+        $pdf = Pdf::loadView('admin.sponsor-priority-pdf', compact('sponsor', 'priorities'));
+
+        //     //  Download the file with a meaningful name
+            return $pdf->download('sponsor-priority-' . $sponsor->username . '.pdf');
+
+
+    }
 
 }

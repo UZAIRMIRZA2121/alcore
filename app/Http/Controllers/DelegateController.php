@@ -209,7 +209,10 @@ class DelegateController extends Controller
     public function downloadPDF($id)
     {
         $delegate = Delegate::findOrFail($id);
-        $priorities = Priority::where('delegates_id' , $id )->get();
+        $priorities = Priority::where('delegates_id', $id)
+        ->orderBy('start_time', 'asc')
+        ->get();
+    
         //  Load the view and pass the data
          $pdf = Pdf::loadView('admin.delegate-priority-pdf', compact('delegate','priorities'));
     

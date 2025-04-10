@@ -40,6 +40,7 @@
 
 <div class="container">
     <h2 class="text-center text-primary">Meeting Schedule</h2>
+    <h2 class="text-center text-primary">{{ $delegate->name }}</h2>
 
     @php
         $groupedMeetings = $priorities->groupBy(function($priority) {
